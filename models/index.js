@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 const URI = require('../config/index');
-
-mongoose.connect(process.env.MONGODB_URI || URI);
-
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
+	);
 // When successfully connected
 mongoose.connection.on('connected', () => {
 	console.log('Established Mongoose Default Connection');

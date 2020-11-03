@@ -12,10 +12,11 @@
 	"author": "Aman Mittal <amandeepmittal@live.com> (www.amanhimself.me)",
 	"license": "MIT",
 	"dependencies": {
+		"dotenv": "^8.2.0",
 		"express": "^4.16.3",
 		"mongoose": "^5.3.2"
 	},
 	"devDependencies": {
-		"nodemon": "^1.18.4"
+		"nodemon": "^2.0.6"
 	}
 }
