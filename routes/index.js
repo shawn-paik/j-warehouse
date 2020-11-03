@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const bookRoutes = require('./books');
+// const bookRoutes = require('./books');
+const loadRoutes = require('./loads');
 const path = require('path');
 
 // API routes
-router.use('/api/books', bookRoutes);
+// router.use('/api/books', bookRoutes);
+router.use('/api/loads', loadRoutes);
 
 // If no API routes are hit, send the React app
 router.use(function(req, res) {
