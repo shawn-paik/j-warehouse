@@ -33,6 +33,6 @@ export default {
 	
 	saveLoad: function(loadData) {
 		debugger;
-		return axios.post('/api/loads', loadData);
+		return axios.post('/api/loads/upload', loadData);
 	}
 };

@@ -123,7 +123,7 @@ class Loads extends Component {
 						</Jumbotron>
 						{this.state.loads.length ? (
 							<List>
-								{this.state.loads.map(load => (
+								{/* {this.state.loads.map(load => (
 									<ListItem key={load._id}>
 										<Link to={'/loads/' + load._id}>
 											<strong>
@@ -132,7 +132,7 @@ class Loads extends Component {
 										</Link>
 										<DeleteBtn onClick={() => this.deleteLoad(load._id)} />
 									</ListItem>
-								))}
+								))} */}
 							</List>
 						) : (
 							<h3>No Results to Display</h3>
