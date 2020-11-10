@@ -1,17 +1,5 @@
 const Load = require('../models/Loads');
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'uploads');
-    },
-    filename:(req, file, cb)=>{
-        console.log(file);
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-})
 
-
-// Defining all methods and business logic for routes
 
 module.exports = {
 	findAll: function(req, res) {
@@ -25,9 +13,26 @@ module.exports = {
 			.catch(err => res.status(422).json(err));
 	},
 	create: function(req, res) {
-		Load.create(req.body)
-			.then(newLoad => res.json(newLoad))
-			.catch(err => res.status(422).json(err));
+        const form = new multiparty.Form();
+		form.parse(request, async (error, fields, files) => {
+			if (error) {
+			return response.status(500).send(error);
+			};
+			try {
+				const path = files.file[0].path;
+				const buffer = fs.readFileSync(path);
+				const type = await FileType.fromBuffer(buffer);
+				const fileName = `bucketFolder/${Date.now().toString()}`;
+				const data = await uploadFile(buffer, fileName, type);
+				return response.status(200).send(data);
+			} catch (err) {
+				// XMLHttpRequestUpload.
+				Load.create(req.body)
+				.then(newLoad => res.json(newLoad))
+				.catch(err => res.status(422).json(err));
+				return response.status(500).send(err);
+			}
+		})
 	},
 	update: function(req, res) {
 		Load.findOneAndUpdate({ _id: req.params.id }, req.body)

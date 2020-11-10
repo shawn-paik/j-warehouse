@@ -5,19 +5,23 @@ const loadSchema = new Schema({
 	supplier: {
 		type: String,
 		required: true
-	},
+  },
+  comments: {
+    type: String, 
+    required: true,
+  },
 	files: {
 		type: [],
 		required: true
-    },
-    receivedDate:{
+  },
+  receivedDate:{
         type: Date,
         required: true
-    },
-    items:{
+  },
+  items:{
         type:[],
-        requred:true
-    },
+        requred:false
+  },
 }, {
     timestamps: true,
   });

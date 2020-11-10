@@ -13,8 +13,9 @@ class Loads extends Component {
 		loads: [],
 		supplier: '',
         receivedDate: new Date(),
-        items: [],
-        files: []
+        // items: [],
+		files: [],
+		comments:''
 	};
 
 	componentDidMount() {
@@ -26,8 +27,9 @@ class Loads extends Component {
             .then(res => this.setState({ loads: res.data,
                 supplier: '',
                 receivedDate: new Date(),
-                items: [],
-                files: []
+                // items: [],
+				files: [],
+				comments: ''
                 })
             )
 			.catch(err => console.log(err));
@@ -55,13 +57,13 @@ class Loads extends Component {
 
 	handleFormSubmit = event => {
 		event.preventDefault();
-        if (this.state.supplier && this.state.items) {
-            debugger;
+        if (this.state.supplier && this.state.comments) {
             const load = {
                 supplier: this.state.supplier,
-                items: this.state.items,
+                // items: this.state.items,
                 receivedDate: this.state.receivedDate,
-                files: this.state.files
+				files: this.state.files,
+				comments: this.state.comments
             };
             API.saveLoad(load)
                 .then(res => this.loadLoads())
@@ -84,16 +86,22 @@ class Loads extends Component {
 								name="supplier"
 								placeholder="Supplier (required)"
 							/>
+							<Input
+								value={this.state.comments}
+								onChange={this.handleInputChange}
+								name="comments"
+								placeholder="Comments (required)"
+							/>
                             <DatePicker
                                 selected={this.state.receivedDate}
                                 onChange={this.onChangeReceivedDate}
                             />
-                            <Input
+                            {/* <Input
 								value={this.state.items}
 								onChange={this.handleInputChange}
 								name="items"
 								placeholder="Items (required)"
-							/>
+							/> */}
 							<Input
 								onChange={this.handleInputChange}
 								name="files"
@@ -102,7 +110,7 @@ class Loads extends Component {
 							/>
 
 							<FormBtn
-								disabled={!(this.state.supplier && this.state.items)}
+								disabled={!(this.state.supplier && this.state.comments)}
 								onClick={this.handleFormSubmit}
 							>
 								Submit Load
