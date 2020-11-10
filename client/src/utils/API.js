@@ -16,5 +16,23 @@ export default {
 	// Saves a book to the database
 	saveBook: function(bookData) {
 		return axios.post('/api/books', bookData);
+	},
+
+		
+	getLoads: function() {
+		return axios.get('/api/loads');
+	},
+	
+	getLoad: function(id) {
+		return axios.get('/api/loads/' + id);
+	},
+	
+	deleteLoad: function(id) {
+		return axios.delete('/api/loads/' + id);
+	},
+	
+	saveLoad: function(loadData) {
+		debugger;
+		return axios.post('/api/loads/upload', loadData);
 	}
 };
