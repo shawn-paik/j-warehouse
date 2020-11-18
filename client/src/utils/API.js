@@ -32,7 +32,12 @@ export default {
 	},
 	
 	saveLoad: function(loadData) {
-		debugger;
-		return axios.post('/api/loads/upload', loadData);
+		const data = new FormData();
+		data.append('files', loadData.files);
+		data.append('supplier', loadData.supplier);
+		data.append('receivedDate', loadData.receivedDate);
+		data.append('comments', loadData.comments);
+		const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+		return axios.post('/api/loads', data, config);
 	}
 };
