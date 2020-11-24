@@ -39,9 +39,13 @@ module.exports = {
 			.catch(err => res.status(422).json(err));
 	},
 	create: function(req, res) {
+		let hi = process.env.SHAWN;
+		console.log(hi);
 		// let files = req.files
 		let b =  process.env.S3_KEY;
-  		let a =  process.env.S3_SECRET;
+		let a =  process.env.S3_SECRET;
+		console.log(a);
+		console.log(b);
 		Load.create(req.body)
 				.then(newLoad => res.json(newLoad))
 				.catch(err => res.status(422).json(err));
