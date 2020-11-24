@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+// require('dotenv').config();
+require('custom-env').env('local');
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
 	);
