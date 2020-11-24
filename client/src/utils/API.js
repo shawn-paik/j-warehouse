@@ -33,7 +33,8 @@ export default {
 	
 	saveLoad: function(loadData) {
 		const data = new FormData();
-		data.append('files', loadData.files);
+		data.append('file', loadData.file);
+		debugger;
 		data.append('supplier', loadData.supplier);
 		data.append('receivedDate', loadData.receivedDate);
 		data.append('comments', loadData.comments);

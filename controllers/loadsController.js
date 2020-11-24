@@ -1,31 +1,7 @@
 const Load = require('../models/Loads');
-// const fs = require('fs');
-// const aws = require('aws-sdk');
+const upload = require("../services/ImageUpload");
+const singleUpload = upload.single("file");
 
-// let s3 = new aws.S3({
-//   accessKeyId: process.env.S3_KEY,
-//   secretAccessKey: process.env.S3_SECRET
-// });
-
-// const uploadFile = (fileName) => {
-//     // Read content from the file
-//     const fileContent = fs.readFileSync(fileName);
-
-//     // Setting up S3 upload parameters
-//     const params = {
-//         Bucket: "joe-new-bucket",
-//         Key: 'cat.jpg', // File name you want to save as in S3
-//         Body: fileContent
-//     };
-
-//     // Uploading files to the bucket
-//     s3.upload(params, function(err, data) {
-//         if (err) {
-//             throw err;
-//         }
-//         console.log(`File uploaded successfully. ${data.Location}`);
-//     });
-// };
 
 module.exports = {
 	findAll: function(req, res) {
@@ -39,8 +15,23 @@ module.exports = {
 			.catch(err => res.status(422).json(err));
 	},
 	create: function(req, res) {
-		let hi = process.env.TEST;
-		console.log(hi);
+		singleUpload(req, res, function (err) {
+			if (err) {
+			  return res.json({
+				success: false,
+				errors: {
+				  title: "Image Upload Error",
+				  detail: err.message,
+				  error: err,
+				},
+			  });
+			}
+			let hi = "";
+			// Load.create(req.body)
+			// 	.then(newLoad => res.json(newLoad))
+			// 	.catch(err => res.status(422).json(err));
+		});
+		let hi = "";
 		// let files = req.files
 		// let b =  process.env.S3_KEY;
 		// let a =  process.env.S3_SECRET;
