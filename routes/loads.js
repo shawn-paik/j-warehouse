@@ -2,20 +2,22 @@ const router = require('express').Router();
 const loadsController = require('../controllers/loadsController');
 const upload = require("../services/ImageUpload");
 const singleUpload = upload.single("file");
+const Load = require('../models/Loads');
+
 router
 	.route('/')
 	.get(loadsController.findAll)
 	.post(upload.single("file"),function(req, res,next) {
 		
-		let hi = "";
-		// let files = req.files
-		// let b =  process.env.S3_KEY;
-		// let a =  process.env.S3_SECRET;
-		// console.log(a);
-		// console.log(b);
-		// Load.create(req.body)
-		// 		.then(newLoad => res.json(newLoad))
-		// 		.catch(err => res.status(422).json(err));
+		const load = {
+			supplier:req.body.supplier,
+			comments:req.body.comments,
+			receivedDate: req.body.receivedDate,
+			files:[req.file.location]
+		}
+		Load.create(load)
+				.then(newLoad => res.json(newLoad))
+				.catch(err => res.status(422).json(err));
 	});
 
 router
