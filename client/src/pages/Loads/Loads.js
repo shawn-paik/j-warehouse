@@ -3,7 +3,6 @@ import DeleteBtn from '../../components/DeleteBtn';
 import Jumbotron from '../../components/Jumbotron';
 import DatePicker from 'react-datepicker';
 import API from '../../utils/API';
-import { Link } from 'react-router-dom';
 import { Col, Row, Container } from '../../components/Grid';
 import { List, ListItem } from '../../components/List';
 import { Input, FormBtn } from '../../components/Form';
@@ -14,24 +13,34 @@ class Loads extends Component {
 		supplier: '',
         receivedDate: new Date(),
         // items: [],
-		file: null,
-		comments:''
+		files: null,
+		comments:'',
+		load: null
 	};
 
 	componentDidMount() {
 		this.loadLoads();
 	}
 
+	getLoad = (id) =>{
+		API.getLoad(id)
+			.then(res=> {
+				var hi = "";
+				this.setState({load:res.data})
+			})
+			.catch(err=>console.log(err));
+	}
+
 	loadLoads = () => {
 		API.getLoads()
-            .then(res => this.setState({ loads: res.data,
-                supplier: '',
-                receivedDate: new Date(),
-                // items: [],
-				files: null,
-				comments: ''
-                })
-            )
+            .then(res =>{
+				this.setState({ loads: res.data,
+					supplier: '',
+					receivedDate: new Date(),
+					files: null,
+					comments: ''
+				})
+			})
 			.catch(err => console.log(err));
 	};
 
@@ -45,7 +54,7 @@ class Loads extends Component {
 		if(event.target.files && event.target.files.length > 0){
             const {name, files} = event.target;
             this.setState({
-                [name]: files[0]
+                [name]: files
             })
         }else{
             const { name, value } = event.target;      
@@ -60,9 +69,8 @@ class Loads extends Component {
         if (this.state.supplier && this.state.comments) {
             const load = {
                 supplier: this.state.supplier,
-                // items: this.state.items,
                 receivedDate: this.state.receivedDate,
-				file: this.state.file,
+				file: this.state.files,
 				comments: this.state.comments
             };
             API.saveLoad(load)
@@ -77,7 +85,22 @@ class Loads extends Component {
 				<Row>
 					<Col size="md-6">
 						<Jumbotron>
-                            <h1>Create Load</h1>
+							{this.state.loads.length ? (
+								<List>
+									{this.state.loads.map(load => (
+										<ListItem key={load._id}>
+											<button onClick={() => {this.getLoad(load._id)}}>
+												<strong>
+													{new Date(load.receivedDate).toLocaleDateString()} - {load.supplier}
+												</strong>
+											</button>
+											{/* <DeleteBtn onClick={() => this.deleteLoad(load._id)} /> */}
+										</ListItem>
+									))}
+								</List>
+							) : (
+								<h3>No Results to Display</h3>
+							)}
 						</Jumbotron>
 						<form>
                             <Input
@@ -96,16 +119,11 @@ class Loads extends Component {
                                 selected={this.state.receivedDate}
                                 onChange={this.onChangeReceivedDate}
                             />
-                            {/* <Input
-								value={this.state.items}
-								onChange={this.handleInputChange}
-								name="items"
-								placeholder="Items (required)"
-							/> */}
 							<Input
 								onChange={this.handleInputChange}
-								name="file"
-                                type="file"
+								name="files"
+								type="file"
+								multiple
 							/>
 
 							<FormBtn
@@ -118,24 +136,18 @@ class Loads extends Component {
 					</Col>
 					<Col size="md-6 sm-12">
 						<Jumbotron>
-							<h1>Loads</h1>
+							<h1>Load</h1>
+							{this.state.load != null ? 
+								<ul>
+									<li>{new Date(this.state.load.receivedDate).toLocaleDateString()}</li>
+									<li>{this.state.load.comments}</li>
+									<li>{this.state.load.supplier}</li>
+									{/* getfile */}
+									{/* <li>{this.state.load.files}</li> */}
+								</ul>  
+							: null}
 						</Jumbotron>
-						{this.state.loads.length ? (
-							<List>
-								{/* {this.state.loads.map(load => (
-									<ListItem key={load._id}>
-										<Link to={'/loads/' + load._id}>
-											<strong>
-												{load.receivedDate} - {load.supplier}
-											</strong>
-										</Link>
-										<DeleteBtn onClick={() => this.deleteLoad(load._id)} />
-									</ListItem>
-								))} */}
-							</List>
-						) : (
-							<h3>No Results to Display</h3>
-						)}
+						
 					</Col>
 				</Row>
 			</Container>
