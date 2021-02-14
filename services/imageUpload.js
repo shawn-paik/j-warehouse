@@ -18,19 +18,29 @@ aws.config.update({
     }
   };
 
+  const storage = multerS3({
+    acl: "public-read",
+    s3,
+    bucket: "joe-new-bucket",
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: "TESTING_METADATA" });
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString() + file.originalname);
+    },
+  })
+
   const upload = multer({
     fileFilter,
-    storage: multerS3({
-      acl: "public-read",
-      s3,
-      bucket: "joe-new-bucket",
-      metadata: function (req, file, cb) {
-        cb(null, { fieldName: "TESTING_METADATA" });
-      },
-      key: function (req, file, cb) {
-        cb(null, Date.now().toString() + file.originalname);
-      },
-    }),
+    storage:storage,
   });
 
-  module.exports = upload;
+  const multipleUpload = multer({
+    storage: storage
+  });
+  
+  module.exports = {
+    multipleUpload: multipleUpload,
+    upload: upload
+  };
+

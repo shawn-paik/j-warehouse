@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const loadsController = require('../controllers/loadsController');
-const upload = require("../services/ImageUpload");
-const singleUpload = upload.single("file");
+const  {upload , multipleUpload} = require("../services/ImageUpload");
 const Load = require('../models/Loads');
 
 router
 	.route('/')
 	.get(loadsController.findAll)
-	.post(upload.single("file"),function(req, res,next) {
+	// .post(upload.single("file"),function(req, res,next) {
+	.post(multipleUpload.array("files"),function(req, res,next) {
 		
 		const load = {
 			supplier:req.body.supplier,

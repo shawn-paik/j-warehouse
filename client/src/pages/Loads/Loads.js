@@ -13,7 +13,7 @@ class Loads extends Component {
 		supplier: '',
         receivedDate: new Date(),
         // items: [],
-		file: null,
+		files: null,
 		comments:'',
 		load: null
 	};
@@ -54,7 +54,7 @@ class Loads extends Component {
 		if(event.target.files && event.target.files.length > 0){
             const {name, files} = event.target;
             this.setState({
-                [name]: files[0]
+                [name]: files
             })
         }else{
             const { name, value } = event.target;      
@@ -70,7 +70,7 @@ class Loads extends Component {
             const load = {
                 supplier: this.state.supplier,
                 receivedDate: this.state.receivedDate,
-				file: this.state.file,
+				file: this.state.files,
 				comments: this.state.comments
             };
             API.saveLoad(load)
@@ -121,8 +121,9 @@ class Loads extends Component {
                             />
 							<Input
 								onChange={this.handleInputChange}
-								name="file"
-                                type="file"
+								name="files"
+								type="file"
+								multiple
 							/>
 
 							<FormBtn

@@ -1,7 +1,4 @@
 const Load = require('../models/Loads');
-const upload = require("../services/ImageUpload");
-const singleUpload = upload.single("file");
-
 
 module.exports = {
 	findAll: function(req, res) {
