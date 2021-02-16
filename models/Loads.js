@@ -19,10 +19,11 @@ const loadSchema = new Schema({
         type: Date,
         required: true
   },
-  items:{
-        type:[],
-        requred:false
-  },
+  items:[{
+    fileName: String,
+    location: String
+  }],
+
 }, {
     timestamps: true,
   });

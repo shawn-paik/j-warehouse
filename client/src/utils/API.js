@@ -18,11 +18,14 @@ export default {
 	
 	saveLoad: function(loadData) {
 		const data = new FormData();
-		data.append('file', loadData.file);
+		// data.append('files', loadData.files);
 		data.append('supplier', loadData.supplier);
 		data.append('receivedDate', loadData.receivedDate);
 		data.append('comments', loadData.comments);
-		const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-		return axios.post('/api/loads', data, config);
+		for(const key of Object.keys(loadData.filesCollection)){
+			data.append('filesCollection', loadData.filesCollection[key])
+		};
+		// const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+		return axios.post('/api/loads', data);
 	}
 };
