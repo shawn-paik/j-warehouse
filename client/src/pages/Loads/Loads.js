@@ -13,10 +13,12 @@ class Loads extends Component {
 		supplier: '',
         receivedDate: new Date(),
         // items: [],
-		files: null,
+		filesCollection: null,
 		comments:'',
 		load: null
 	};
+
+	fileInput = React.createRef();
 
 	componentDidMount() {
 		this.loadLoads();
@@ -25,8 +27,8 @@ class Loads extends Component {
 	getLoad = (id) =>{
 		API.getLoad(id)
 			.then(res=> {
-				var hi = "";
 				this.setState({load:res.data})
+				console.log(res.data);
 			})
 			.catch(err=>console.log(err));
 	}
@@ -37,8 +39,8 @@ class Loads extends Component {
 				this.setState({ loads: res.data,
 					supplier: '',
 					receivedDate: new Date(),
-					files: null,
-					comments: ''
+					filesCollection: null,
+					comments: '',
 				})
 			})
 			.catch(err => console.log(err));
@@ -50,6 +52,7 @@ class Loads extends Component {
 			.catch(err => console.log(err));
 	};
 
+	
 	handleInputChange = event => {
 		if(event.target.files && event.target.files.length > 0){
             const {name, files} = event.target;
@@ -70,11 +73,15 @@ class Loads extends Component {
             const load = {
                 supplier: this.state.supplier,
                 receivedDate: this.state.receivedDate,
-				file: this.state.files,
+				filesCollection: this.state.filesCollection,
 				comments: this.state.comments
             };
+			
             API.saveLoad(load)
-                .then(res => this.loadLoads())
+                .then((res) => {
+					document.getElementById('file-input').value="";
+					this.loadLoads()
+				})
                 .catch(err => console.log(err));
         }
 	};
@@ -121,9 +128,10 @@ class Loads extends Component {
                             />
 							<Input
 								onChange={this.handleInputChange}
-								name="files"
+								name="filesCollection"
 								type="file"
 								multiple
+								id="file-input"
 							/>
 
 							<FormBtn
