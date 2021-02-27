@@ -6,6 +6,7 @@ import API from '../../utils/API';
 import { Col, Row, Container } from '../../components/Grid';
 import { List, ListItem } from '../../components/List';
 import { Input, FormBtn } from '../../components/Form';
+import styles from '../../mystyle.module.css'; 
 
 class Loads extends Component {
 	state = {
@@ -88,7 +89,7 @@ class Loads extends Component {
 	};
 
 	setShow = () => {this.setState({
-		showForm: !this.setState.showForm
+		showForm: !this.state.showForm
 	})};
 
 	render() {
@@ -114,7 +115,21 @@ class Loads extends Component {
 								<h3>No Results to Display</h3>
 							)}
 						</Jumbotron>
-						<button onClick={() => {this.setShow()}} value="Form" >Show Form</button>
+					</Col>
+					
+					<Col size="md-6 sm-12">
+						<Jumbotron>
+							<h1>Load</h1>
+							{this.state.load != null ? 
+								<ul>
+									<li>{new Date(this.state.load.receivedDate).toLocaleDateString()}</li>
+									<li>{this.state.load.comments}</li>
+									<li>{this.state.load.supplier}</li>
+									{/* getfile */}
+									{/* <li>{this.state.load.files}</li> */}
+								</ul>  
+							: null}
+							<button onClick={() => {this.setShow()}} value="Form" className={styles.showForm}>Show Form</button>
 						{this.state.showForm && <form>
                             <Input
 								value={this.state.supplier}
@@ -147,19 +162,6 @@ class Loads extends Component {
 								Submit Load
 							</FormBtn>
 						</form>}
-					</Col>
-					<Col size="md-6 sm-12">
-						<Jumbotron>
-							<h1>Load</h1>
-							{this.state.load != null ? 
-								<ul>
-									<li>{new Date(this.state.load.receivedDate).toLocaleDateString()}</li>
-									<li>{this.state.load.comments}</li>
-									<li>{this.state.load.supplier}</li>
-									{/* getfile */}
-									{/* <li>{this.state.load.files}</li> */}
-								</ul>  
-							: null}
 						</Jumbotron>
 						
 					</Col>
