@@ -12,7 +12,7 @@ class Loads extends Component {
 		loads: [],
 		supplier: '',
         receivedDate: new Date(),
-        // items: [],
+        // items: [],a
 		filesCollection: null,
 		comments:'',
 		load: null,
@@ -88,7 +88,7 @@ class Loads extends Component {
 	};
 
 	setShow = () => {this.setState({
-		showForm: !this.setState.showForm
+		showForm: !this.state.showForm
 	})};
 
 	render() {
