@@ -153,9 +153,21 @@ class Loads extends Component {
 							<h1>Load</h1>
 							{this.state.load != null ? 
 								<ul>
-									<li>{new Date(this.state.load.receivedDate).toLocaleDateString()}</li>
-									<li>{this.state.load.comments}</li>
-									<li>{this.state.load.supplier}</li>
+									<li>Date Received: {new Date(this.state.load.receivedDate).toLocaleDateString()}</li>
+									<li>Comments: {this.state.load.comments}</li>
+									<li>Supplier: {this.state.load.supplier}</li>
+									{this.state.load.files.length > 0 && 
+										<React.Fragment>
+											<li>Attached Files: </li>
+											<ul>
+												{this.state.load.files.map((v, i)=>{
+													return (
+														<li><a href={v.location} target="_blank" rel="noreferrer noopener">{v.fileName}</a></li>
+													)
+												})}
+											</ul>
+										</React.Fragment>										
+									}
 									{/* getfile */}
 									{/* <li>{this.state.load.files}</li> */}
 								</ul>  
