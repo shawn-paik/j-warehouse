@@ -15,7 +15,8 @@ class Loads extends Component {
         // items: [],
 		filesCollection: null,
 		comments:'',
-		load: null
+		load: null,
+		showForm: false
 	};
 
 	fileInput = React.createRef();
@@ -86,6 +87,10 @@ class Loads extends Component {
         }
 	};
 
+	setShow = () => {this.setState({
+		showForm: !this.setState.showForm
+	})};
+
 	render() {
 		return (
 			<Container fluid>
@@ -109,7 +114,8 @@ class Loads extends Component {
 								<h3>No Results to Display</h3>
 							)}
 						</Jumbotron>
-						<form>
+						<button onClick={() => {this.setShow()}} value="Form" >Show Form</button>
+						{this.state.showForm && <form>
                             <Input
 								value={this.state.supplier}
 								onChange={this.handleInputChange}
@@ -140,7 +146,7 @@ class Loads extends Component {
 							>
 								Submit Load
 							</FormBtn>
-						</form>
+						</form>}
 					</Col>
 					<Col size="md-6 sm-12">
 						<Jumbotron>
