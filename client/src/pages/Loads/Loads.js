@@ -142,21 +142,23 @@ class Loads extends Component {
 									{/* <li>{this.state.load.files}</li> */}
 								</ul>  
 							: null}
-							<button onClick={() => {this.setShow()}} value="Form" className={styles.showForm}>Show Form</button>
-								{this.state.showForm && <form>
+						</Jumbotron>
+						<button onClick={() => {this.setShow()}} value="Form" className={styles.marginBottom20}>Form</button>
+								{this.state.showForm && <form className={styles.formMarginRight}>
 															<Input
 									value={this.state.supplier}
 									onChange={this.handleInputChange}
 									name="supplier"
 									placeholder="Supplier (required)"
 								/>
-								<Input
+								<textarea className={styles.marginBottom20, styles.textArea}
 									value={this.state.comments}
 									onChange={this.handleInputChange}
 									name="comments"
 									placeholder="Comments (required)"
-								/>
-															<DatePicker
+									></textarea>
+								
+															<DatePicker className={styles.margin15}
 																	selected={this.state.receivedDate}
 																	onChange={this.onChangeReceivedDate}
 															/>
@@ -175,11 +177,11 @@ class Loads extends Component {
 									Submit Load
 								</FormBtn>
 							</form>}
-						</Jumbotron>
 						
 					</Col>
 				</Row>
 			</Container>
+			
 		);
 	}
 }
