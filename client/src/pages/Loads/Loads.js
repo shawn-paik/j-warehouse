@@ -98,9 +98,9 @@ class Loads extends Component {
 			<Container fluid>
 				<Row>
 					<Col size="md-6">
-						<Jumbotron>
+						<Jumbotron style={{height: "700px"}}>
 							{this.state.loads.length ? (
-								<List>
+								<List style={{height:"700px"}}>
 									{this.state.loads.map(load => (
 										<ListItem key={load._id}>
 											<button onClick={() => {this.getLoad(load._id)}}>

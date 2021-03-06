@@ -1,8 +1,7 @@
 .list-overflow-container {
   max-height: 100%;
-  border: 1px #dddddd solid;
   border-radius: 4px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -33,5 +32,6 @@
 }
 
 .list-group-item{
-  
+  background-color:inherit;
+  border-style:none;
 }
