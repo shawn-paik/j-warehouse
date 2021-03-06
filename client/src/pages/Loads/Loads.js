@@ -7,6 +7,7 @@ import API from '../../utils/API';
 import { Col, Row, Container } from '../../components/Grid';
 import { List, ListItem } from '../../components/List';
 import { Input, FormBtn } from '../../components/Form';
+import styles from '../../mystyle.module.css'; 
 
 class Loads extends Component {
 	state = {
@@ -115,40 +116,9 @@ class Loads extends Component {
 								<h3>No Results to Display</h3>
 							)}
 						</Jumbotron>
-						<button onClick={() => {this.setShow()}} value="Form" >Show Form</button>
-						{this.state.showForm && <form>
-                            <Input
-								value={this.state.supplier}
-								onChange={this.handleInputChange}
-								name="supplier"
-								placeholder="Supplier (required)"
-							/>
-							<Input
-								value={this.state.comments}
-								onChange={this.handleInputChange}
-								name="comments"
-								placeholder="Comments (required)"
-							/>
-                            <DatePicker
-                                selected={this.state.receivedDate}
-                                onChange={this.onChangeReceivedDate}
-                            />
-							<Input
-								onChange={this.handleInputChange}
-								name="filesCollection"
-								type="file"
-								multiple
-								id="file-input"
-							/>
-
-							<FormBtn
-								disabled={!(this.state.supplier && this.state.comments)}
-								onClick={this.handleFormSubmit}
-							>
-								Submit Load
-							</FormBtn>
-						</form>}
 					</Col>
+					
+
 					<Col size="md-6 sm-12">
 						<Jumbotron>
 							<h1>Load</h1>
@@ -174,10 +144,45 @@ class Loads extends Component {
 								</ul>  
 							: null}
 						</Jumbotron>
+						<button onClick={() => {this.setShow()}} value="Form" className={styles.marginBottom20}>Form</button>
+								{this.state.showForm && <form className={styles.formMarginRight}>
+															<Input
+									value={this.state.supplier}
+									onChange={this.handleInputChange}
+									name="supplier"
+									placeholder="Supplier (required)"
+								/>
+								<textarea className={styles.marginBottom20, styles.textArea}
+									value={this.state.comments}
+									onChange={this.handleInputChange}
+									name="comments"
+									placeholder="Comments (required)"
+									></textarea>
+								
+															<DatePicker className={styles.margin15}
+																	selected={this.state.receivedDate}
+																	onChange={this.onChangeReceivedDate}
+															/>
+								<Input
+									onChange={this.handleInputChange}
+									name="filesCollection"
+									type="file"
+									multiple
+									id="file-input"
+								/>
+
+								<FormBtn
+									disabled={!(this.state.supplier && this.state.comments)}
+									onClick={this.handleFormSubmit}
+								>
+									Submit Load
+								</FormBtn>
+							</form>}
 						
 					</Col>
 				</Row>
 			</Container>
+			
 		);
 	}
 }
