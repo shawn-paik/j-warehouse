@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DeleteBtn from '../../components/DeleteBtn';
 import Jumbotron from '../../components/Jumbotron';
 import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import API from '../../utils/API';
 import { Col, Row, Container } from '../../components/Grid';
 import { List, ListItem } from '../../components/List';
