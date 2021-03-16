@@ -108,7 +108,7 @@ class Loads extends Component {
 													{new Date(load.receivedDate).toLocaleDateString()} - {load.supplier}
 												</strong>
 											</button>
-											{/* <DeleteBtn onClick={() => this.deleteLoad(load._id)} /> */}
+											<DeleteBtn onClick={() => this.deleteLoad(load._id)} />
 										</ListItem>
 									))}
 								</List>
