@@ -9,39 +9,39 @@ import { List, ListItem } from '../../components/List';
 import { Input, FormBtn } from '../../components/Form';
 import styles from '../../mystyle.module.css'; 
 
-class Loads extends Component {
+class Orders extends Component {
 	state = {
-		loads: [],
+		orders: [],
 		supplier: '',
-        receivedDate: new Date(),
+        orderDate: new Date(),
         // items: [],a
 		filesCollection: null,
 		comments:'',
-		load: null,
+		order: null,
 		showForm: false
 	};
 
 	fileInput = React.createRef();
 
 	componentDidMount() {
-		this.loadLoads();
+		this.loadOrders();
 	}
 
-	getLoad = (id) =>{
-		API.getLoad(id)
+	getOrder = (id) =>{
+		API.getOrder(id)
 			.then(res=> {
-				this.setState({load:res.data})
+				this.setState({order:res.data})
 				console.log(res.data);
 			})
 			.catch(err=>console.log(err));
 	}
 
-	loadLoads = () => {
-		API.getLoads()
+	loadOrders = () => {
+		API.getOrders()
             .then(res =>{
-				this.setState({ loads: res.data,
+				this.setState({ orders: res.data,
 					supplier: '',
-					receivedDate: new Date(),
+					orderDate: new Date(),
 					filesCollection: null,
 					comments: '',
 				})
@@ -49,18 +49,13 @@ class Loads extends Component {
 			.catch(err => console.log(err));
 	};
 
-	deleteLoad = id => {
-		API.deleteLoad(id)
-			.then(res => this.loadLoads())
+	deleteOrder = id => {
+		API.deleteOrder(id)
+			.then(res => this.loadOrders())
 			.catch(err => console.log(err));
 	};
 
-	handleDateChange = date =>{
-		this.setState({
-      		receivedDate: date,
-  		});
-	}
-
+	
 	handleInputChange = event => {
 		if(event.target.files && event.target.files.length > 0){
             const {name, files} = event.target;
@@ -76,20 +71,20 @@ class Loads extends Component {
 	};
 
 	handleFormSubmit = event => {
+        debugger;
 		event.preventDefault();
-		debugger;
         if (this.state.supplier && this.state.comments) {
-            const load = {
+            const order = {
                 supplier: this.state.supplier,
-                receivedDate: this.state.receivedDate,
+                orderDate: this.state.orderDate,
 				filesCollection: this.state.filesCollection,
 				comments: this.state.comments
             };
 			
-            API.saveLoad(load)
+            API.saveOrder(order)
                 .then((res) => {
 					document.getElementById('file-input').value="";
-					this.loadLoads()
+					this.loadOrders()
 				})
                 .catch(err => console.log(err));
         }
@@ -105,16 +100,16 @@ class Loads extends Component {
 				<Row>
 					<Col size="md-6">
 						<Jumbotron style={{height: "700px"}}>
-							{this.state.loads.length ? (
+							{this.state.orders.length ? (
 								<List style={{height:"700px"}}>
-									{this.state.loads.map(load => (
-										<ListItem key={load._id}>
-											<button onClick={() => {this.getLoad(load._id)}}>
+									{this.state.orderss.map(order => (
+										<ListItem key={order._id}>
+											<button onClick={() => {this.getOrder(order._id)}}>
 												<strong>
-													{new Date(load.receivedDate).toLocaleDateString()} - {load.supplier}
+													{new Date(order.orderDate).toLocaleDateString()} - {order.supplier}
 												</strong>
 											</button>
-											<DeleteBtn onClick={() => this.deleteLoad(load._id)} />
+											<DeleteBtn onClick={() => this.deleteOrder(order._id)} />
 										</ListItem>
 									))}
 								</List>
@@ -127,17 +122,17 @@ class Loads extends Component {
 
 					<Col size="md-6 sm-12">
 						<Jumbotron>
-							<h1>Load</h1>
-							{this.state.load != null ? 
+							<h1>Order</h1>
+							{this.state.order != null ? 
 								<ul>
-									<li>Date Received: {new Date(this.state.load.receivedDate).toLocaleDateString()}</li>
-									<li>Comments: {this.state.load.comments}</li>
-									<li>Supplier: {this.state.load.supplier}</li>
-									{this.state.load.files.length > 0 && 
+									<li>Date Ordered: {new Date(this.state.order.orderDate).toLocaleDateString()}</li>
+									<li>Comments: {this.state.order.comments}</li>
+									<li>Supplier: {this.state.order.supplier}</li>
+									{this.state.order.files.length > 0 && 
 										<React.Fragment>
 											<li>Attached Files: </li>
 											<ul>
-												{this.state.load.files.map((v, i)=>{
+												{this.state.order.files.map((v, i)=>{
 													return (
 														<li><a href={v.location} target="_blank" rel="noreferrer noopener">{v.fileName}</a></li>
 													)
@@ -164,8 +159,8 @@ class Loads extends Component {
 									></textarea>
 								
 															<DatePicker className={styles.margin15}
-																	selected={this.state.receivedDate}
-																	onChange={this.handleDateChange}
+																	selected={this.state.orderDate}
+																	onChange={this.onChangeOrderDate}
 															/>
 								<Input
 									onChange={this.handleInputChange}
@@ -179,7 +174,7 @@ class Loads extends Component {
 									disabled={!(this.state.supplier && this.state.comments)}
 									onClick={this.handleFormSubmit}
 								>
-									Submit Load
+									Submit Order
 								</FormBtn>
 							</form>}
 						
@@ -191,4 +186,4 @@ class Loads extends Component {
 	}
 }
 
-export default Loads;
+export default Orders;
