@@ -105,7 +105,7 @@ class Loads extends Component {
 				<Row>
 					<Col size="md-6">
 						<Jumbotron style={{height: "700px"}}>
-							{this.state.loads.length ? (
+							{this.state.loads.length > 0? (
 								<List style={{height:"700px"}}>
 									{this.state.loads.map(load => (
 										<ListItem key={load._id}>

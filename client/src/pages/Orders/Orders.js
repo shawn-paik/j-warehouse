@@ -55,6 +55,12 @@ class Orders extends Component {
 			.catch(err => console.log(err));
 	};
 
+	handleDateChange = date =>{
+		this.setState({
+      		orderDate: date,
+  		});
+	}
+
 	
 	handleInputChange = event => {
 		if(event.target.files && event.target.files.length > 0){
@@ -100,9 +106,9 @@ class Orders extends Component {
 				<Row>
 					<Col size="md-6">
 						<Jumbotron style={{height: "700px"}}>
-							{this.state.orders.length ? (
+							{this.state.orders.length > 0 ? (
 								<List style={{height:"700px"}}>
-									{this.state.orderss.map(order => (
+									{this.state.orders.map(order => (
 										<ListItem key={order._id}>
 											<button onClick={() => {this.getOrder(order._id)}}>
 												<strong>
@@ -160,7 +166,7 @@ class Orders extends Component {
 								
 															<DatePicker className={styles.margin15}
 																	selected={this.state.orderDate}
-																	onChange={this.onChangeOrderDate}
+																	onChange={this.handleDateChange}
 															/>
 								<Input
 									onChange={this.handleInputChange}
