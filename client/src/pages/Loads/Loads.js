@@ -8,6 +8,7 @@ import { Col, Row, Container } from '../../components/Grid';
 import { List, ListItem } from '../../components/List';
 import { Input, FormBtn } from '../../components/Form';
 import styles from '../../mystyle.module.css'; 
+import Status from '../../components/Status';
 
 class Loads extends Component {
 	state = {
@@ -101,6 +102,8 @@ class Loads extends Component {
 
 	render() {
 		return (
+			<>
+			<Status />
 			<Container fluid>
 				<Row>
 					<Col size="md-6">
@@ -186,7 +189,7 @@ class Loads extends Component {
 					</Col>
 				</Row>
 			</Container>
-			
+			</>
 		);
 	}
 }
