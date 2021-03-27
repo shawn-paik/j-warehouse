@@ -25,7 +25,9 @@ router
 		order.files = files;
 		Order.create(order)
 				.then(newOrder => res.json(newOrder))
-				.catch(err => res.status(422).json(err));
+				.catch(err => {
+					res.status(422).json(err)
+				});
 	});
 
 router
